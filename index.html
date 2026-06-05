@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Faustin LAFAGE">
+
+<title>Seum-ception : Le Closeread qui s’auto-analyse</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-92838d928efe0a12c17e00a1d3fdd3f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="index_files/libs/quarto-contrib/intersection-observer-polyfill-1.0.0/intersection-observer.js"></script>
+<script src="index_files/libs/quarto-contrib/scrollama-3.2.0/scrollama.min.js"></script>
+<script src="index_files/libs/quarto-contrib/closeread-0.1.0/closeread.js"></script>
+<meta cr-debug-mode="false">
+<meta cr-remove-header-space="false">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="_extensions/qmd-lab/closeread/closeread.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+
+<main class="content page-columns page-full column-body" id="quarto-document-content">
+      <!-- user-provided yaml closeread style options -->
+      <style>
+        :root {
+          --cr-section-background-color: #0f172a;
+--cr-narrative-text-color-sidebar: #ffffff;
+--cr-narrative-background-color-sidebar: #0f172a;
+        }
+      </style>
+    
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Seum-ception : Le Closeread qui s’auto-analyse</h1>
+<p class="subtitle lead">Infiltration dans le code source du projet primé au Hackaviz 2026</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Faustin LAFAGE </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+
+<style>
+  /* 0. On passe le fond global en bleu nuit et le texte en blanc pour tout le document */
+  body {
+    background-color: #0f172a !important;
+    color: #ffffff !important; /* CORRECTIF : rend le texte standard visible */
+  }
+
+  /* 1. On cache l'en-tête natif de Quarto pour éviter les doublons */
+  #title-block-header {
+    display: none !important;
+  }
+  
+  /* 2. LE CORRECTIF ANTI-BLANC : On supprime les marges invisibles de Quarto */
+  main.content, #quarto-document-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+  
+  /* 3. On crée notre magnifique bandeau bleu plein écran SANS bug de scroll */
+  .custom-hero {
+    background-color: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 6rem 1rem 2rem 1rem;
+    margin-top: -20px; 
+    
+    /* On force la marge basse à 0 pour se coller à la section Closeread */
+    margin-bottom: 0 !important; 
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 40vh; /* Donne une belle hauteur au bandeau */
+  }
+  
+  .custom-hero h1 {
+    color: white;
+    font-size: clamp(2rem, 4vw, 3.5rem); /* S'adapte au mobile/PC */
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  
+  .custom-hero p.subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: 0.5rem; /* Réduit pour approcher le nom de l'auteur */
+  }
+
+  /* Nouveau style pour l'auteur */
+  .custom-hero p.author {
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    font-weight: 400;
+    opacity: 0.7; /* Légèrement plus discret que le sous-titre */
+    margin-top: 0;
+    margin-bottom: auto; /* Pousse la flèche vers le bas */
+    padding-bottom: 3rem;
+  }
+  
+  /* 4. L'animation intégrée dans le bleu */
+  .scroll-indicator {
+    color: rgba(255, 255, 255, 0.7); /* Blanc légèrement transparent */
+    padding-top: 2rem;
+  }
+  
+  .scroll-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    vertical-align: middle;
+  }
+  
+  .scroll-arrow {
+    font-size: 1.2rem;
+    display: inline-block;
+    margin-left: 8px;
+    animation: gentle-bounce 2s infinite;
+    vertical-align: middle;
+  }
+  
+  @keyframes gentle-bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-2px); }
+  }
+  
+  /* Optionnel : S'assurer que les liens dans la section finale restent lisibles */
+  a {
+    color: #93c5fd !important; /* Un bleu clair joli pour les liens sur fond sombre */
+  }
+</style>
+
+<div class="custom-hero column-screen">
+  <h1>Seum-ception : Le Closeread qui s’auto-analyse</h1>
+  <p class="subtitle">Infiltration dans le code source du projet primé au Hackaviz 2026</p>
+  <p class="author">Par Faustin LAFAGE</p>
+  
+  <div class="scroll-indicator">
+    <span class="scroll-text">Scrollez pour lire</span>
+    <span class="scroll-arrow">↓</span>
+  </div>
+</div>
+
+<div class="cr-section cr-column-screen sidebar-left">
+<div class="narrative-col">
+<section id="bienvenue-dans-la-matrice" class="level1 narrative trigger">
+<h1 class="narrative">Bienvenue dans la matrice</h1>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-seum-score-1">
+<div class="narrative">
+<p>Le <strong>Seum-Score</strong> vous a montré la réalité brute de l’amertume européenne.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-seum-score-1">
+<div class="narrative">
+<p>Vous avez scrollé, vous avez vu les graphiques s’animer, les zooms cibler les bons pays au bon moment. Mais comment une simple page web peut-elle manipuler ainsi la perception des données ?</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-inception">
+<div class="narrative">
+<p>Préparez-vous à descendre d’un étage. Ne cherchez pas la toupie : si le texte défile, c’est que vous êtes encore dans un Closeread.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-inception">
+<div class="narrative">
+<p>Aujourd’hui, nous allons infiltrer le code source du projet primé au Toulouse DataViz 2026. L’objectif ? Utiliser la technologie Closeread pour disséquer… le Closeread lui-même.</p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-seum-score-1" class="sticky">
+<p><img src="./img/seum_score.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-inception" class="sticky">
+<p><img src="./img/inception.png" class="img-fluid" style="width:60.0%"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-right">
+<div class="narrative-col">
+<section id="le-moteur-r" class="level1 narrative trigger">
+<h1 class="narrative">Le Moteur : R</h1>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-r-logo">
+<div class="narrative">
+<p><strong>R</strong> est le cœur de l’écosystème. Né dans les années 90, c’est un langage de programmation entièrement dédié aux statistiques, à la science de données et à la visualisation.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-r-logo">
+<div class="narrative">
+<p>Pourquoi <strong>R</strong> ?</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-r-logo">
+<div class="narrative">
+<p>Il est <strong>open-source</strong>, possède une communauté académique et industrielle immense, et excelle là où d’autres langages doivent utiliser des bibliothèques externes.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-r-view">
+<div class="narrative">
+<p>Raconter du code <strong>R</strong> dans un terminal brut peut être parfois très austère.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-r-studio-logo">
+<div class="narrative">
+<p>C’est là qu’intervient <strong>RStudio</strong> (développé par l’entreprise Posit). C’est l’environnement de développement (IDE) incontournable pour tout data scientist.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-r-studio-ide">
+<div class="narrative">
+<p>Son rôle : Il centralise tout ce dont on a besoin dans une interface intuitive divisée en <strong>4 quadrants distincts</strong>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-pan-to="30%, -30%" data-focus-on="cr-r-studio-ide" data-scale-by="1.4">
+<div class="narrative">
+<p>La <strong>console</strong> pour exécuter le code.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-pan-to="30%, 30%" data-focus-on="cr-r-studio-ide" data-scale-by="1.4">
+<div class="narrative">
+<p>L’<strong>éditeur de script</strong> pour écrire le programme.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-pan-to="-30%, 30%" data-focus-on="cr-r-studio-ide" data-scale-by="1.4">
+<div class="narrative">
+<p>L’<strong>environnement</strong> pour surveiller les données chargées en mémoire.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-pan-to="-30%, -30%" data-focus-on="cr-r-studio-ide" data-scale-by="1.4">
+<div class="narrative">
+<p>L’<strong>espace de visualisation</strong> pour afficher les graphiques et l’aide.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-habitacle">
+<div class="narrative">
+<p>En résumé : Si <strong>R</strong> est le <strong>moteur</strong>, <strong>RStudio</strong> est l’<strong>habitacle</strong> confortable de la voiture.</p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-r-logo" class="sticky">
+<p><img src="./img/R_logo.png" class="img-fluid" style="width:200.0%"></p>
+</div>
+<div id="cr-r-view" class="sticky">
+<p><img src="./img/R.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div id="cr-r-studio-logo" class="sticky">
+<p><img src="./img/logo-RStudio.png" class="img-fluid" style="width:200.0%"></p>
+</div>
+<div id="cr-r-studio-ide" class="sticky">
+<p><img src="./img/rstudio_ide.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div id="cr-habitacle" class="sticky">
+<p><img src="./img/habitacle.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-left">
+<div class="narrative-col">
+<section id="le-tidyverse" class="level1 narrative trigger">
+<h1 class="narrative">Le Tidyverse</h1>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-tydiverse">
+<div class="narrative">
+<p>Pendant longtemps, le R de base avait la réputation d’avoir une syntaxe complexe et parfois incohérente. En 2016, une équipe de développeurs (menée par Hadley Wickham) a standardisé la pratique de R en créant le <strong>Tidyverse</strong>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-tydiverse">
+<div class="narrative">
+<p><strong>Qu’est ce que c’est ?</strong> Une collection de packages conçus pour travailler ensemble et partageant la même philosophie et la même structure de code.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-tydiverse">
+<div class="narrative">
+<p>La philosophie “Tidy” : les données doivent être propres (chaque variable est une colonne, chaque observation est une ligne).</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-ggplot2">
+<div class="narrative">
+<p>Parmi les piliers, on retrouve <strong>ggplot2</strong>, la référence absolue pour créer des graphiques professionnels et élégants.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-dplyr">
+<div class="narrative">
+<p>On utilise également <strong>dplyr</strong> pour manipuler, filtrer et transformer les données avec des mots simples (<em>filter, select, mutate</em>).</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-tidyr">
+<div class="narrative">
+<p>Ainsi que <strong>tidyr</strong> pour structurer le tout.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-tydiverse">
+<div class="narrative">
+<p><strong>L’opérateur Pipe (%&gt;% ou |&gt;) :</strong> C’est la véritable révolution syntaxique. Il permet d’enchaîner les opérations de manière fluide, lisible comme une phrase (ex : Prendre les données <span class="math inline">\(\rightarrow\)</span> Filtrer <span class="math inline">\(\rightarrow\)</span> Calculer la moyenne).</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-tydiverse">
+<div class="narrative">
+<p>L’impact de cette révolution : Le Tidyverse a rendu R beaucoup plus <strong>accessible</strong>, <strong>moderne</strong> et <strong>rapide à apprendre</strong>. Il a transformé R d’un outil purement académique en un standard industriel de la Data Science.</p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-tydiverse" class="sticky">
+<p><img src="./img/tydiverse.png" class="img-fluid" style="width:70.0%"></p>
+</div>
+<div id="cr-ggplot2" class="sticky">
+<p><img src="./img/ggplot2.png" class="img-fluid"></p>
+</div>
+<div id="cr-dplyr" class="sticky">
+<p><img src="./img/dplyr.png" class="img-fluid"></p>
+</div>
+<div id="cr-tidyr" class="sticky">
+<p><img src="./img/tidyr.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-right">
+<div class="narrative-col">
+<section id="la-révolution-quarto" class="level1 narrative trigger">
+<h1 class="narrative">La révolution Quarto</h1>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-analyste-content">
+<div class="narrative">
+<p>Avant, un analyste ouvrait son script R. Il l’exécutait, copiait le graphique obtenu, ouvrait Microsoft Word, collait le graphique, puis rédigeait son texte.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-analyste-panique">
+<div class="narrative">
+<p>Le problème ? Si les données changent le lendemain, il faut tout recommencer à la main. C’est une source d’erreurs chronophage.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-quarto">
+<div class="narrative">
+<p>C’est là qu’intervient <strong>Quarto</strong></p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-quarto">
+<div class="narrative">
+<p>Mais qu’est-ce que c’est ? C’est un <strong>système de publication scientifique et technique open source</strong>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-quarto">
+<div class="narrative">
+<p>Il permet de rédiger en utilisant le format <strong>Markdown</strong>, et de créer du contenu dynamique avec <strong>Python</strong>, <strong>R</strong>, <strong>Julia</strong> et <strong>Observable</strong>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-quarto">
+<div class="narrative">
+<p>La véritable puissance de Quarto réside dans sa compilation. À partir d’un seul et même document, vous pouvez :</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-article-quarto">
+<div class="narrative">
+<p>Publier des <strong>articles</strong> et des rapports de qualité professionnelle.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-presentation-quarto">
+<div class="narrative">
+<p>Générer des <strong>diaporamas</strong> pour vos présentations.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-dashboard-quarto">
+<div class="narrative">
+<p>Concevoir des <strong>dashboards</strong> pour piloter vos données.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-site-web-quarto">
+<div class="narrative">
+<p>Ou encore créer des <strong>sites web</strong> et des blogs entièrement reproductibles.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-code-quarto" data-highlight="1-5">
+<div class="narrative">
+<p>Regardons comment se structure ce fichier “Tout-en-un”. Tout en haut, on retrouve l’en-tête <strong>YAML</strong> qui gère les métadonnées et définit le format de sortie.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-code-quarto" data-highlight="6-11">
+<div class="narrative">
+<p><strong>Du texte normal</strong> : écrit très simplement en Markdown pour documenter notre analyse sans se soucier du code informatique.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-code-quarto" data-highlight="12-26">
+<div class="narrative">
+<p><strong>Des Chunks (Blocs de Code)</strong> : ce sont ces petites fenêtres intégrées au milieu du texte qui contiennent ici nos instructions de filtrage et de visualisation du Tidyverse.</p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-analyste-content" class="sticky">
+<p><img src="./img/analyste_content.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-analyste-panique" class="sticky">
+<p><img src="./img/analyste_panique.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-quarto" class="sticky">
+<p><img src="./img/quarto.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-article-quarto" class="sticky">
+<p><img src="./img/article_quarto.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-presentation-quarto" class="sticky">
+<p><img src="./img/presentation_quarto.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-dashboard-quarto" class="sticky">
+<p><img src="./img/dashboard_quarto.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-site-web-quarto" class="sticky">
+<p><img src="./img/site_web_quarto.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-code-quarto" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Mon Premier Document Quarto"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Voici du **texte normal**. Il s'agit d'un paragraphe écrit très simplement </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pour documenter notre analyse. Quarto permet de mettre en forme facilement </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>le texte (comme ce mot en **gras**) sans se soucier du code.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analyse des données</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Un exemple de script R avec le Tidyverse</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span> </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cyl <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Consommation des voitures à 4 cylindres"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-left">
+<div class="narrative-col">
+<section id="la-magie-de-closeread" class="level1 narrative trigger">
+<h1 class="narrative">La Magie de Closeread</h1>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-closeread">
+<div class="narrative">
+<p>Quarto permet de créer des pages web statiques, mais <strong>Closeread</strong> leur donne vie grâce au <em>Scrollytelling</em>. L’objectif ? Rendre la lecture active en liant le texte et l’image par le mouvement.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-closeread">
+<div class="narrative">
+<p>Le secret de Closeread repose sur une séparation stricte de l’écran en deux espaces distincts qui cohabitent au sein d’une même section.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-pan-to="50%, 0%" data-focus-on="cr-closeread" data-scale-by="1.8">
+<div class="narrative">
+<p>À gauche, nous trouvons la <strong>barre narrative</strong>. C’est le texte classique qui défile verticalement au rythme du scroll de l’utilisateur.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-pan-to="-20%, 0%" data-focus-on="cr-closeread" data-scale-by="1.8">
+<div class="narrative">
+<p>À droite, nous trouvons la <strong>zone fixe (ou <em>sticky</em>)</strong>. C’est le théâtre visuel où les graphiques, les cartes ou les codes restent ancrés à l’écran pendant que le texte passe.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-demo-syntaxe" data-highlight="1-9">
+<div class="narrative">
+<p>Mais concrètement, comment on code cette séparation ?La première étape se joue dans l’en-tête YAML, en déclarant le format spécifique <code>closeread-html</code>. C’est également ici que l’on personnalise l’habillage, que ce soit en choisissant parmi les 25 thèmes Quarto natifs ou en appliquant vos propres réglages (polices, couleurs…).</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-demo-syntaxe" data-highlight="11,28">
+<div class="narrative">
+<p>Une fois le document paramétré, on délimite notre terrain de jeu. Pour cela, on englobe le chapitre concerné dans une balise <code>:::{.cr-section}</code>. C’est elle qui active le mode scrollytelling.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-demo-syntaxe" data-highlight="24-26">
+<div class="narrative">
+<p>Ensuite, il faut préparer l’élément visuel qui restera figé à droite. On l’isole tout en bas de notre code, et on lui donne un identifiant unique précédé d’un dièse, par exemple <code>#cr-ma-carte</code>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-demo-syntaxe" data-highlight="17">
+<div class="narrative">
+<p>Maintenant que les fondations sont posées, comment relier le texte aux visuels ? La véritable magie opère grâce à des <strong>déclencheurs (triggers)</strong> invisibles insérés directement dans le texte à l’aide d’un <code>@</code>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-demo-syntaxe" data-highlight="17-22">
+<div class="narrative">
+<p>En ajoutant de simples paramètres entre accolades <code>{}</code> derrière ce déclencheur, le texte prend le contrôle direct de la caméra et de l’affichage.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-demo-syntaxe" data-highlight="18">
+<div class="narrative">
+<p>L’attribut <code>scale-by</code> permet d’ajuster l’effet de loupe (le zoom global) pour forcer l’œil du lecteur à se focaliser sur une zone précise.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-demo-syntaxe" data-highlight="19">
+<div class="narrative">
+<p>L’attribut <code>pan-to</code> déplace l’élément visuel sur un axe horizontal ou vertical pour recadrer l’attention, créant des transitions fluides.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-demo-syntaxe" data-highlight="20">
+<div class="narrative">
+<p>Quand l’élément fixe est un bloc de code ou du texte, l’attribut <code>highlight</code> entre en scène : il éclaire uniquement les lignes ciblées et estompe tout le reste dans la pénombre.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-demo-syntaxe" data-highlight="21">
+<div class="narrative">
+<p>Enfin, l’attribut <code>zoom-to</code> automatise le travail : il ordonne à la caméra de calculer d’elle-même le meilleur cadrage pour zoomer directement et exclusivement sur les lignes de code sélectionnées.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-multilangues">
+<div class="narrative">
+<p>La beauté de Quarto, c’est son multilinguisme. Et Closeread le respecte à la lettre ! Vous pouvez mettre en valeur des blocs de code issus de n’importe quel langage.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-css-chunk">
+<div class="narrative">
+<p><strong>Un peu de style avec CSS</strong> : Vous pouvez afficher comment vous personnalisez l’interface de votre document. Closeread permet d’illuminer les règles CSS de votre choix.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-python-chunk">
+<div class="narrative">
+<p><strong>L’incontournable Python</strong> : Vous êtes plutôt de la team Python ? Intégrez du code Pandas ou Matplotlib, et zoomez sur la logique de vos DataFrames.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-r-chunk">
+<div class="narrative">
+<p><strong>La puissance de R</strong> : Évidemment, R reste de la partie. Mettez en surbrillance l’enchaînement de vos “pipes” (<code>%&gt;%</code> ou <code>|&gt;</code>) pour expliquer votre raisonnement étape par étape.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-ojs-chunk">
+<div class="narrative">
+<p><strong>L’interactivité avec OJS</strong> : Et pour le dynamisme côté navigateur, Observable JS (OJS) s’intègre parfaitement. Vous pouvez même surligner les variables réactives qui contrôlent vos graphiques !</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-publish-terminal">
+<div class="narrative">
+<p><strong>Le déploiement en un clic</strong> : Une fois votre document peaufiné, pas besoin de serveurs complexes. Quarto intègre une commande pour propulser votre scrollytelling directement sur GitHub Pages.</p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-closeread" class="sticky">
+<p><img src="./img/carte_seum_score.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div id="cr-demo-syntaxe" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Seum-score"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Faustin LAFAGE"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  closeread-html:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cyborg</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">    backgroundcolor: darkslateblue</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">    fontsize: 1.4em</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>:::{.cr-section}</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Mon texte narratif défile ici, à gauche...</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>Je raconte mon histoire au lecteur.</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>Et soudain, je déclenche l'affichage d'une carte !</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@cr-ma-carte</span><span class="co">]</span>{</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  scale-by="1.5"</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  pan-to="20%, -10%"</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  highlight="1-5"</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  zoom-to="3-8"</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>:::{#cr-ma-carte}</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="al">![](./img/carte_seum_score.png)</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cr-multilangues" class="sticky">
+<p><img src="./img/multilangues.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-css-chunk" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">/* Personnalisation du fond */</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">.custom-background {</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="in">  background-color: #0f172a;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="in">  color: #ffffff;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="in">  padding: 2rem;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cr-python-chunk" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtrer les pays avec un seum critique</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"seum_data.csv"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df_filtered <span class="op">=</span> df[df[<span class="st">'seum_level'</span>] <span class="op">&gt;</span> <span class="dv">9000</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_filtered.head())</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cr-r-chunk" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>donnees_propres <span class="ot">&lt;-</span> donnees_brutes <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(seum_score <span class="sc">&gt;</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">categorie =</span> <span class="st">"Seum élevé"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(donnees_propres)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cr-ojs-chunk" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Déclaration d'un slider réactif</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>viewof seuil_seum <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Seuil de Seum"</span>})</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Filtrage dynamique lié au slider</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>donnees_filtrees <span class="op">=</span> donnees<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">seum</span> <span class="op">&gt;</span> seuil_seum)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cr-publish-terminal" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Déployer le projet sur GitHub Pages</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> publish gh-pages</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-right">
+<div class="narrative-col">
+<div class="trigger new-trigger" data-focus-on="cr-seum-score-2">
+<div class="narrative">
+<p>Comment le <strong>Seum-Score</strong> est-il né ?</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-seum-score-2">
+<div class="narrative">
+<p>L’étincelle est venue d’une expérience professionnelle précédente dans un laboratoire de compléments alimentaires.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-g2i">
+<div class="narrative">
+<p>J’y ai travaillé sur l’intégration du <strong>Green Impact Index</strong> : un outil développé par les Laboratoires Pierre Fabre pour afficher l’impact environnemental et sociétal des produits.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-g2i">
+<div class="narrative">
+<p>Et puis, en lisant la description du Hackaviz 2026, une phrase a fait tilt :</p>
+</div>
+</div>
+<div class="trigger">
+<div class="narrative">
+<blockquote class="blockquote">
+<div data-focus-on="cr-g2i">
+<p><em>“L’objectif de ces dépenses étant en premier lieu le bien-être des populations…”</em></p>
+</div>
+</blockquote>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-g2i">
+<div class="narrative">
+<p>Mon cerveau a immédiatement fait le lien : et si on appliquait la logique d’un score pour croiser les dépenses réelles des États et le niveau de bonheur ressenti par leurs citoyens ?</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-seum-score-2">
+<div class="narrative">
+<p>Le <strong>Seum-Score</strong> était né ! Une tentative statistique de vérifier si notre argent produit du sourire… ou de la frustration.</p>
+</div>
+</div>
+<div class="trigger">
+<div class="narrative">
+<p>Pour concevoir cet index, je m’y suis pris en <strong>4 étapes clés</strong>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-code-import">
+<div class="narrative">
+<p><strong>1) Préparation de l’environnement et importation</strong> : On commence par charger nos packages (<code>tidyverse</code>, <code>FactoMineR</code>, <code>sf</code>, <code>arrow</code>) et importer nos fichiers Parquet ainsi que le fond de carte de l’Europe.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-code-clean">
+<div class="narrative">
+<p><strong>2) Le Nettoyage et la Transformation</strong> : C’est la phase de manipulation des données. On calcule le poids relatif des budgets en % et on opère notre fameuse <strong>inversion sémantique</strong> : multiplier par -1 les variables négatives (solitude, chômage) pour aligner les graphiques.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-code-reconduction">
+<div class="narrative">
+<p><strong>3) La Reconduction (Fusion et Imputation)</strong> : On interconnecte nos sources de données par pays. Pour gérer proprement les données manquantes sans supprimer de lignes, on utilise un algorithme d’imputation mathématique via le package <code>missMDA</code>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-code-analyse">
+<div class="narrative">
+<p><strong>4) L’Analyse statistique et les Exports</strong> : Le bouquet final : on exécute l’ACP et la CAH pour isoler nos 4 profils de Seum. Enfin, on exporte les matrices en <code>.csv</code> et le fichier spatial <code>seum.geojson</code> pour nourrir nos graphiques interactifs en Observable JS.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-code-ojs">
+<div class="narrative">
+<p><strong>5) La Visualisation Interactive (Observable JS)</strong> : C’est la brique magique qui s’exécute directement dans le navigateur du lecteur. Observable JS récupère nos fichiers légers et dessine en temps réel la carte et les graphiques vectoriels interactifs au pixel près.</p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<section id="coulisses-le-code-du-seum-score" class="level1 sticky sticky-col-stack">
+<h1 class="sticky">Coulisses : le code du seum-score</h1>
+<div id="cr-seum-score-2" class="sticky">
+<p><img src="./img/seum_score.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-g2i" class="sticky">
+<p><img src="./img/g2i.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div id="cr-code-import" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>library(arrow)      </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>library(tidyverse)  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>library(FactoMineR) </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>library(factoextra) </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>library(sf)         </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>library(missMDA)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># Chemins</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>path &lt;- "data/"</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># Imports</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>bien_etre &lt;- read_parquet(file.path(path, "parquet_long", "bien_etre.parquet"))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>depenses  &lt;- read_parquet(file.path(path, "parquet_long", "depenses_euro.parquet"))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>geo &lt;- st_read(file.path(path, "geojson", "carte.geojson"), quiet = TRUE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cr-code-clean" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Calcul des parts budgétaires de l'État</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df_depenses &lt;- depenses %&gt;% </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  filter(Cde_Dépense %in% c("GF01", "GF02", "GF03"), Année == "2022") %&gt;%</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  group_by(Pays) %&gt;%</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  mutate(Part_Budget = (Montant / sum(Montant, na.rm = TRUE)) * 100)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># L'inversion sémantique magique</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>df_bien_etre &lt;- bien_etre %&gt;% </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  mutate(Valeur_Mesurée = if_else(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    Mesure %in% mesures_negatives, Valeur_Mesurée * -1, Valeur_Mesurée</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cr-code-reconduction" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Fusion sémantique des tables</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data_brute &lt;- inner_join(df_depenses, df_bien_etre, by = c("Pays", "Année"))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># Traitement automatique des valeurs manquantes (missMDA)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>data_filtree &lt;- data_brute %&gt;% select(where(~ mean(is.na(.)) &lt; 0.5))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>res_impute &lt;- imputePCA(data_filtree, ncp = 2)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>data_complete &lt;- res_impute$completeObs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cr-code-analyse" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Moteur statistique (ACP + CAH Clustering)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>res_pca &lt;- PCA(data_complete, scale.unit = TRUE, graph = FALSE)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>res_hcpc &lt;- HCPC(res_pca, nb.clust = 4, graph = FALSE)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exports plats pour l'interactivité Observable JS</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>write_csv(corr_data, "corr_data.csv")</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>write_csv(pca_inds, "pca_inds.csv")</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>sf::st_write(geo_final, "seum.geojson", delete_dsn = TRUE, quiet = TRUE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cr-code-ojs" class="sticky">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>// Lecture du fichier généré par R et tracé du graphique</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>data_corr = FileAttachment("corr_data.csv").csv({typed: true})</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>Plot.plot({</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  color: { type: "diverging", scheme: "RdBu", domain: <span class="co">[</span><span class="ot">-1, 1</span><span class="co">]</span> },</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  marks: [</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    Plot.cell(data_corr, { x: "var1", y: "var2", fill: "correlation" })</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-left">
+<div class="narrative-col">
+<section id="retour-dexpérience" class="level1 narrative trigger">
+<h1 class="narrative">Retour d’expérience</h1>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-purpan">
+<div class="narrative">
+<p>Avant de refermer ce chapitre, faisons une petite pause hors de la matrice technique. Qui se cache derrière ce projet ?</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-terrain">
+<div class="narrative">
+<p>À la base, je suis <strong>Ingénieur Agronome</strong>, diplômé de l’école d’ingénieurs de Purpan à Toulouse. L’informatique, le développement et la data n’étaient absolument pas mon corps de métier. Mon terrain, c’était le vivant !</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-acp">
+<div class="narrative">
+<p>Mais la data a un pouvoir d’attraction puissant. J’ai commencé à coder en R de manière totalement autodidacte pendant mes stages d’études, poussé par une immense curiosité pour le domaine.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-learning">
+<div class="narrative">
+<p>Mon secret pour combler mon manque de bagage en informatique ? <strong>L’Intelligence Artificielle</strong>. J’ai utilisé l’IA comme un mentor quotidien pour comprendre mes erreurs, apprendre la logique algorithmique et débloquer mes scripts. L’IA n’a pas remplacé mon apprentissage, elle l’a décuplé.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-win">
+<div class="narrative">
+<p>Pour réaliser la dataviz du <strong>Seum-Score</strong>, de l’idée initiale jusqu’à la publication web, j’estime la charge de travail à <strong>environ 30 heures</strong>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-win">
+<div class="narrative">
+<p>Trente heures d’exploration intense, car pour être totalement transparent : <strong>je ne connaissais absolument pas la syntaxe de Closeread avant de démarrer cette viz.</strong></p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-win">
+<div class="narrative">
+<p>C’est la preuve ultime que cet écosystème est accessible. Avec une formation différente, beaucoup d’envie et les bons outils, il est tout à fait possible de sortir des graphiques classiques pour créer des expériences immersives et professionnelles.</p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-purpan" class="sticky">
+<p><img src="./img/purpan.png" class="img-fluid"></p>
+</div>
+<div id="cr-terrain" class="sticky">
+<p><img src="./img/terrain.png" class="img-fluid"></p>
+</div>
+<div id="cr-acp" class="sticky">
+<p><img src="./img/acp.jpg" class="img-fluid" style="width:80.0%"></p>
+</div>
+<div id="cr-learning" class="sticky">
+<p><img src="./img/ai_learning.jpg" class="img-fluid"></p>
+</div>
+<div id="cr-win" class="sticky">
+<p><img src="./img/win.jpg" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-right">
+<div class="narrative-col">
+<div class="trigger new-trigger" data-focus-on="cr-seum-score">
+<div class="narrative">
+<p>Voilà comment s’achève notre infiltration au cœur du <strong>Seum-Score</strong>.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-seum-score">
+<div class="narrative">
+<p>En combinant la puissance brute de <strong>R</strong>, la rigueur du <strong>Tidyverse</strong>, la polyvalence de <strong>Quarto</strong>, le dynamisme de <strong>Closeread</strong> et l’interactivité d’<strong>Observable JS</strong>, nous avons fait bien plus que de la simple technique.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-seum-score">
+<div class="narrative">
+<p>Le projet est entièrement reproductible, open-source et prêt à être décliné pour d’autres analyses. À vous maintenant de vous emparer de cette stack pour donner vie à vos propres données !</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-seum-score">
+<div class="narrative">
+<p>Merci à tous pour votre attention. La matrice est désormais ouverte à vos questions !</p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<section id="conclusion-sortir-de-la-matrice" class="level1 sticky sticky-col-stack">
+<h1 class="sticky">Conclusion : Sortir de la matrice</h1>
+<div id="cr-seum-score" class="sticky">
+<p><img src="./img/seum_score.png" class="img-fluid" style="width:80.0%"></p>
+</div>
+</section>
+</div>
+</div>
+<p><br>
+<br>
+<br>
+</p>
+<hr>
+<section id="reconstruire-la-matrice-chez-vous-liens-installation" class="level1">
+<h1>📚 Reconstruire la matrice chez vous (Liens &amp; Installation)</h1>
+<p>Si vous voulez cloner ce projet ou créer votre propre scrollytelling, voici le guide de démarrage rapide :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Outil / Ressource</th>
+<th style="text-align: left;">Ce qu’il faut installer / Consulter</th>
+<th style="text-align: left;">Lien Officiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Le Cœur (R)</strong></td>
+<td style="text-align: left;">Télécharger l’environnement de calcul R complet.</td>
+<td style="text-align: left;"><a href="https://cloud.r-project.org/">CRAN Project</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>L’Habitacle (RStudio)</strong></td>
+<td style="text-align: left;">Installer l’IDE RStudio Desktop (édité par Posit).</td>
+<td style="text-align: left;"><a href="https://posit.co/download/rstudio-desktop/">Posit Download</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Le Châssis (Quarto)</strong></td>
+<td style="text-align: left;">Installer le Quarto CLI (le moteur de compilation).</td>
+<td style="text-align: left;"><a href="https://quarto.org/">Quarto Get Started</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>La Caméra (Closeread)</strong></td>
+<td style="text-align: left;">L’extension de Scrollytelling officielle pour Quarto.</td>
+<td style="text-align: left;"><a href="https://closeread.dev/">Closeread Guide</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Le Dessin (OJS Plot)</strong></td>
+<td style="text-align: left;">La documentation pour coder les graphiques réactifs.</td>
+<td style="text-align: left;"><a href="https://observablehq.com/plot/">Observable Plot</a></td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>Pour installer Closeread dans votre projet :</strong> Ouvrez votre terminal à la racine de votre dossier de travail Quarto et exécutez simplement la commande suivante :</p>
+<p>quarto add qmd-lab/closeread</p>
+</blockquote>
+<p>*Dataviz créée par <a href="https://www.linkedin.com/in/faustin-lafage/?skipRedirect=true">Faustin LAFAGE</a>.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

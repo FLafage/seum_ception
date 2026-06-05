@@ -1,0 +1,252 @@
+---
+title: "Seum-ception : Le Closeread qui s’auto-analyse"
+subtitle: "Infiltration dans le code source du projet primé au Hackaviz 2026"
+author: "Faustin LAFAGE"
+format:
+  closeread-html:
+    theme: cosmo
+    fontsize: 1.2em
+    cr-section:
+      layout: "sidebar-left"
+    cr-style:
+      section-background-color: "#f8f9fa"
+      narrative-background-color-sidebar: "#1e3a8a"
+      narrative-text-color-sidebar: "#ffffff"
+---
+
+### 1. La Seum-ception : Bienvenue dans la matrice
+
+Le **Seum-Score** vous a montré la réalité brute de l'amertume européenne. Vous avez scrollé, vous avez vu les graphiques s'animer, les zooms cibler les bons pays au bon moment. Mais comment une simple page web peut-elle manipuler ainsi la perception des données ?
+
+Préparez-vous à descendre d'un étage. Ne cherchez pas la toupie : si le texte défile, c'est que vous êtes encore dans un Closeread. 
+
+Aujourd'hui, nous allons infiltrer le code source du projet primé au Toulouse DataViz 2026. L'objectif ? Utiliser la technologie Closeread pour disséquer... le Closeread lui-même. 
+
+---
+
+### 2. Le Moteur : R, des origines à la révolution Tidyverse
+
+:::{.cr-section}
+
+:::{#cr-r-logo}
+![](./img/R_logo.png)
+:::
+
+R est le coeur de l'écosystème. Né dans les années 90, c'est un langage de programmation entièrement dédié aux statistiques, à la science de données et à la visualisation. [@cr-r-logo]
+
+Pourquoi R ? [@cr-r-logo]
+
+Il est open-source, possède une communauté académique et industrielle immense, et excelle là ou d'autres langages doivent utiliser des bibliothèques externes. [@cr-r-logo]
+
+En résumé : C'est le "moteur" brut qui effectue les calcules et les analyses. [@cr-r-logo]
+
+:::
+
+:::{.cr-section}
+
+:::{#cr-r-view}
+![](./img/R.png)
+:::
+
+Raconter du code R dans un terminal brut peut être austère. [@cr-r-view]
+
+:::
+
+:::{.cr-section}
+
+:::{#cr-r-studio-logo}
+![](./img/logo-RStudio.png)
+:::
+
+C'est là qu'intervient RStudio (développé par l'entreprise Posit). [@cr-r-studio-logo]
+
+Qu'est ce que c'est ? [@cr-r-studio-logo]
+
+C'est l'environnement de développement (IDE) incontournable pour R. [@cr-r-studio-logo]
+
+:::
+
+:::{.cr-section}
+
+:::{#cr-r-studio-ide}
+![](./img/rstudio_ide.png)
+:::
+
+Son rôle : Il centralise tout ce dont un data scientist a besoin dans une interface intuitive divisée en 4 quadrants : [@cr-r-studio-ide]
+
+- La console pour exécuter le code.
+- L'éditeur de script pour écrire le programme.
+- L'environnement pour surveiller les données chargées en mémoire.
+- L'espace de visualisation pour afficher les graphiques et l'aide.
+
+En résumé : Si R est le moteur, RStudio est l'habitacle confortable de la voiture. [@cr-r-studio-ide]
+
+:::
+
+---
+
+### 3. La révolution du Tidyverse
+
+:::{.cr-section}
+
+:::{#cr-tydiverse}
+![](./img/tydiverse.png)
+:::
+
+Pendant longtemps, le R de base avait la réputation d'avoir une syntaxe complexe et parfois incohérente. En 2016, une équipe de développeurs (menée par Hadley Wickham) a standardisé la pratique de R en créant le Tidyverse. [@cr-tydiverse]
+
+**Qu'est ce que c'est ?**
+
+Une collection de packages conçus pour travailler ensemble et partageant la même philosophie et la même structure de code. [@cr-tydiverse]
+
+La philosophie "Tidy" : les données doivent être propres (chaque variable est une colonne, chaque observation est une ligne). [@cr-tydiverse]
+
+:::
+
+**Les piliers du Tidyverse :**
+
+* **ggplot2** : la référence absolue pour créer des graphiques professionnels et élégants.
+* **dplyr** : pour manipuler, filtrer et transformer les données avec des mots simples (*filter, select, mutate*).
+* **tidyr** : pour nettoyer et structurer les données.
+
+**L'opérateur Pipe :** La véritable révolution syntaxique. Il permet d'enchaîner les opérations de manière fluide, lisible comme une phrase (ex : Prendre les données $\rightarrow$ Filtrer $\rightarrow$ Calculer la moyenne).
+
+L'impact de cette révolution : Le Tidyverse a rendu R beaucoup plus accessible, moderne et rapide à apprendre. Il a transformé R d'un outil purement académique en un standard industriel de la Data Science.
+
+---
+
+### 4. La révolution Quarto : Le document "Tout-en-un"
+
+Avant, un analyste ouvrait son script R. Il l'exécutait, copiait le graphique obtenu, ouvrait Microsoft Word, collait le graphique, puis rédigeait son texte.
+
+Le problème ? Si les données changent le lendemain, il faut tout recommencer à la main. C'est une source d'erreurs chronophage.
+
+Quarto élimine les copier-coller. C'est un unique document dans lequel on trouve trois choses :
+
+1. **Du texte normal** : écrit très simplement.
+2. **Des Chunks (Blocs de Code)** : ce sont des petites fenêtres intégrées au milieu du texte qui contiennet les instructions du Tidyverse.
+3. **Une touche Render** : En cliquant sur un seul bouton, Quarto lit le document, exécute les scripts R en arrière plan, génère les visuels et fabrique le produit fini.
+
+
+
+
+
+
+
+
+
+
+Alors, dans notre Seum-Score, à quoi ressemble ce code ? [@cr-rmotor]
+
+Dans un document Quarto destiné au grand public, on ne veut pas montrer ces lignes de code. On utilise donc des options comme `#| include: false` pour dire à R : "Calcule tout, mais tais-toi". [@cr-rmotor]{highlight="1-4"}
+
+C'est avec la grammaire claire du Tidyverse qu'on filtre nos données. Remarquez le petit `%>%` (le pipe) : il permet de lire le code de gauche à droite, comme une recette de cuisine. [@cr-rmotor]{highlight="6-7"}
+
+Et c'est grâce à la puissance historique de R en statistiques qu'on peut appeler un package comme `FactoMineR` pour calculer notre Analyse en Composantes Principales (ACP). Une chose difficile à scripter dans un outil glisser-déposer. [@cr-rmotor]{highlight="9-12"}
+
+Une fois la donnée nettoyée et les statistiques calculées, R exporte un CSV tout propre, et laisse sa place à la couche web pour l'affichage. [@cr-rmotor]{highlight="14-15"}
+
+:::{#cr-rmotor}
+```r
+#| label: traitement_donnees
+#| message: false
+#| warning: false
+#| include: false
+
+# Grammaire Tidyverse (dplyr)
+data_filtree <- data_brute %>% 
+  select(where(~ mean(is.na(.)) < 0.5))
+
+# Modélisation Statistique (FactoMineR)
+res_impute <- imputePCA(data_filtree, ncp = 2) 
+data_complete <- res_impute$completeObs
+res_pca <- PCA(data_complete, scale.unit = TRUE, graph = FALSE)
+
+# Export pour le Web
+write_csv(pca_inds, "pca_inds.csv")
+```
+:::
+:::
+
+---
+
+### 3. La Carrosserie : Quarto à la baguette
+
+:::{.cr-section}
+
+Comment faire cohabiter notre code R avec du texte, du web, et du JavaScript ? La réponse s'appelle **Quarto**. C'est le système de publication scientifique nouvelle génération. [@cr-quarto]
+
+Quarto fonctionne avec un en-tête YAML. C'est ici qu'on configure les paramètres globaux de notre document. [@cr-quarto]{highlight="1-4"}
+
+La vraie force de Quarto, c'est son agnostisme. On peut déclarer notre format de sortie. Ici, nous ne faisons pas une présentation classique ni un simple PDF, mais un format spécifique : `closeread-html`. [@cr-quarto]{highlight="5-6"}
+
+On y définit notre thème, la taille de police, et surtout l'architecture visuelle : par exemple, mettre le texte narratif dans une barre latérale avec un fond bleu profond. [@cr-quarto]{highlight="7-13"}
+
+:::{#cr-quarto}
+```yaml
+---
+title: "Le Seum-Score : L'Europe à bout de nerfs"
+subtitle: "Pourquoi payer des impôts si c'est pour faire la gueule ?"
+lightbox: true
+format:
+  closeread-html:
+    theme: cosmo
+    fontsize: 1.2em
+    cr-section:
+      layout: "sidebar-left"
+    cr-style:
+      narrative-background-color-sidebar: "#1e3a8a"
+      narrative-text-color-sidebar: "#ffffff"
+---
+```
+:::
+:::
+
+---
+
+### 4. La Magie : La technologie Closeread
+
+:::{.cr-section}
+
+Nous avons la donnée (R) et le document (Quarto). Maintenant, comment déclencher des animations rien qu'en scrollant ? C'est le rôle de l'extension **Closeread**, et tout repose sur un système de "déclencheurs" invisibles. [@cr-trigger]
+
+On encapsule notre élément visuel (une image, un graphique interactif, ou du code) dans un bloc identifié, par exemple `#cr-carte`. Ce bloc va rester "collé" (sticky) à l'écran. [@cr-trigger]{highlight="1-3"}
+
+Ensuite, dans le texte qui défile à côté, on "appelle" cet identifiant pour le faire apparaître à l'écran en utilisant un simple `@`. [@cr-trigger]{highlight="5"}
+
+Et voici la vraie magie : en ajoutant des paramètres entre accolades `{}`, le texte manipule le graphique de manière dynamique au passage de la souris ! [@cr-trigger]{highlight="7"}
+
+Quand cette phrase arrive au milieu de votre écran, Closeread ordonne au graphique de grossir (`scale-by="1.5"`) et déplace la caméra vers le nord de l'Europe (`pan-to="0%, 10%"`). [@cr-trigger]{highlight="7"}
+
+Et pour montrer l'Europe du Sud (le fameux Grade D), il suffit de scroller un peu plus bas, et les coordonnées du `pan-to` s'adaptent toutes seules, créant une transition fluide. [@cr-trigger]{highlight="9"}
+
+:::{#cr-trigger}
+```markdown
+:::{#cr-carte}
+[Code de la carte interactive ici]
+:::
+
+Nous avons traduit cette frustration en une note universelle... @cr-carte
+
+**Le Grade A** 🟢 : C'est l'excellence européenne. [@cr-carte]{scale-by="1.5" pan-to="0%, 10%"}
+
+**Le Grade D** 🔴 : Le Seum intégral. [@cr-carte]{scale-by="1.5" pan-to="0%, -30%"}
+```
+:::
+:::
+
+---
+
+### 5. L'Aboutissement : Le Seum-Score en action
+
+Grâce à cette stack (R + Quarto + Closeread + Observable JS pour les graphiques vectoriels), le **Seum-Score** n'est plus un simple rapport statistique. C'est devenu une histoire interactive. 
+
+*   On a pris 25 indicateurs de l'OCDE rébarbatifs.
+*   On les a réduits à leurs composantes principales.
+*   On a scénarisé le résultat pour transformer l'amertume fiscale européenne en une expérience narrative immersive.
+
+> "L'argent ne fait pas le bonheur, et visiblement, l'impôt non plus."
+
+C'est cette capacité à lier **rigueur mathématique** et **design narratif** qui nous a permis de décrocher la victoire au Hackaviz 2026. 
+
+Merci à tous de m'avoir suivi dans cette Seum-ception ! Je suis maintenant à votre disposition pour vos questions.

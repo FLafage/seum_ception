@@ -1,0 +1,526 @@
+---
+title: "Seum-ception : Le Closeread qui s’auto-analyse"
+subtitle: "Infiltration dans le code source du projet primé au Hackaviz 2026"
+author: "Faustin LAFAGE"
+format:
+  closeread-html:
+    theme: cosmo
+    fontsize: 1.2em
+    cr-section:
+      layout: "sidebar-left"
+    cr-style:
+      section-background-color: "#0f172a"
+      narrative-background-color-sidebar: "#0f172a"
+      narrative-text-color-sidebar: "#ffffff"
+---
+
+```{=html}
+
+<style>
+  /* 1. On cache l'en-tête natif de Quarto pour éviter les doublons */
+  #title-block-header {
+    display: none !important;
+  }
+  
+  /* 2. LE CORRECTIF ANTI-BLANC : On supprime les marges invisibles de Quarto */
+  main.content, #quarto-document-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+  
+  /* 3. On crée notre magnifique bandeau bleu plein écran SANS bug de scroll */
+  .custom-hero {
+    background-color: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 6rem 1rem 2rem 1rem;
+    
+    /* ON A SUPPRIMÉ LA LIGNE width: 100vw et margin-left ICI */
+    
+    margin-top: -20px; /* On force le bloc à remonter pour manger le dernier liseré blanc */
+    margin-bottom: 3rem;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 40vh; /* Donne une belle hauteur au bandeau */
+  }
+  
+  .custom-hero h1 {
+    color: white;
+    font-size: clamp(2rem, 4vw, 3.5rem); /* S'adapte au mobile/PC */
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  
+  .custom-hero p.subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: auto; /* Pousse la flèche vers le bas */
+    padding-bottom: 3rem;
+  }
+  
+  /* 4. L'animation intégrée dans le bleu */
+  .scroll-indicator {
+    color: rgba(255, 255, 255, 0.7); /* Blanc légèrement transparent */
+    padding-top: 2rem;
+  }
+  
+  .scroll-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    vertical-align: middle;
+  }
+  
+  .scroll-arrow {
+    font-size: 1.2rem;
+    display: inline-block;
+    margin-left: 8px;
+    animation: gentle-bounce 2s infinite;
+    vertical-align: middle;
+  }
+  
+  @keyframes gentle-bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-2px); }
+  }
+</style>
+
+<div class="custom-hero column-screen">
+  <h1>Seum-ception : Le Closeread qui s’auto-analyse</h1>
+  <p class="subtitle">Infiltration dans le code source du projet primé au Hackaviz 2026</p>
+  
+  <div class="scroll-indicator">
+    <span class="scroll-text">Scrollez pour lire</span>
+    <span class="scroll-arrow">↓</span>
+  </div>
+</div>
+
+```
+
+:::{.cr-section}
+
+# Bienvenue dans la matrice
+
+Le **Seum-Score** vous a montré la réalité brute de l'amertume européenne. [@cr-seum-score-1]
+
+Vous avez scrollé, vous avez vu les graphiques s'animer, les zooms cibler les bons pays au bon moment. Mais comment une simple page web peut-elle manipuler ainsi la perception des données ? [@cr-seum-score-1]
+
+Préparez-vous à descendre d'un étage. Ne cherchez pas la toupie : si le texte défile, c'est que vous êtes encore dans un Closeread. [@cr-inception]
+
+Aujourd'hui, nous allons infiltrer le code source du projet primé au Toulouse DataViz 2026. L'objectif ? Utiliser la technologie Closeread pour disséquer... le Closeread lui-même. [@cr-inception]
+
+:::{#cr-seum-score-1}
+![](./img/seum_score.png){width="80%"}
+:::
+
+:::{#cr-inception}
+![](./img/inception.png){width="60%"}
+:::
+
+:::
+
+:::{.cr-section}
+
+# Le Moteur : R
+
+R est le cœur de l'écosystème. Né dans les années 90, c'est un langage de programmation entièrement dédié aux statistiques, à la science de données et à la visualisation. [@cr-r-logo]
+
+Pourquoi R ? [@cr-r-logo]
+
+Il est open-source, possède une communauté académique et industrielle immense, et excelle là où d'autres langages doivent utiliser des bibliothèques externes. [@cr-r-logo]
+
+Raconter du code R dans un terminal brut peut être parfois très austère. [@cr-r-view]
+
+C'est là qu'intervient RStudio (développé par l'entreprise Posit). C'est l'environnement de développement (IDE) incontournable pour tout data scientist. [@cr-r-studio-logo]
+
+Son rôle : Il centralise tout ce dont on a besoin dans une interface intuitive divisée en 4 quadrants distincts. [@cr-r-studio-ide]
+
+La console pour exécuter le code.[@cr-r-studio-ide]{scale-by="1.4" pan-to="30%, -30%"}
+
+L'éditeur de script pour écrire le programme. [@cr-r-studio-ide]{scale-by="1.4" pan-to="30%, 30%"}
+
+L'environnement pour surveiller les données chargées en mémoire. [@cr-r-studio-ide]{scale-by="1.4" pan-to="-30%, 30%"}
+
+L'espace de visualisation pour afficher les graphiques et l'aide. [@cr-r-studio-ide]{scale-by="1.4" pan-to="-30%, -30%"}
+
+En résumé : Si R est le moteur, RStudio est l'habitacle confortable de la voiture. [@cr-habitacle]
+
+:::{#cr-r-logo}
+![](./img/R_logo.png){width="200%"}
+:::
+
+:::{#cr-r-view}
+![](./img/R.png){width="100%"}
+:::
+
+:::{#cr-r-studio-logo}
+![](./img/logo-RStudio.png){width="200%"}
+:::
+
+:::{#cr-r-studio-ide}
+![](./img/rstudio_ide.png){width="100%"}
+:::
+
+:::{#cr-habitacle}
+![](./img/habitacle.png){width="100%"}
+:::
+
+:::
+
+:::{.cr-section}
+
+# Le Tidyverse
+
+Pendant longtemps, le R de base avait la réputation d'avoir une syntaxe complexe et parfois incohérente. En 2016, une équipe de développeurs (menée par Hadley Wickham) a standardisé la pratique de R en créant le Tidyverse. [@cr-tydiverse]
+
+**Qu'est ce que c'est ?** Une collection de packages conçus pour travailler ensemble et partageant la même philosophie et la même structure de code. [@cr-tydiverse]
+
+La philosophie "Tidy" : les données doivent être propres (chaque variable est une colonne, chaque observation est une ligne). [@cr-tydiverse]
+
+Parmi les piliers, on retrouve **ggplot2**, la référence absolue pour créer des graphiques professionnels et élégants. [@cr-ggplot2]
+
+On utilise également **dplyr** pour manipuler, filtrer et transformer les données avec des mots simples (*filter, select, mutate*). [@cr-dplyr]
+
+Ainsi que **tidyr** pour structurer le tout. [@cr-tidyr]
+
+**L'opérateur Pipe (%>% ou |>) :** C'est la véritable révolution syntaxique. Il permet d'enchaîner les opérations de manière fluide, lisible comme une phrase (ex : Prendre les données $\rightarrow$ Filtrer $\rightarrow$ Calculer la moyenne). [@cr-tydiverse]
+
+L'impact de cette révolution : Le Tidyverse a rendu R beaucoup plus accessible, moderne et rapide à apprendre. Il a transformé R d'un outil purement académique en un standard industriel de la Data Science. [@cr-tydiverse]
+
+:::{#cr-tydiverse}
+![](./img/tydiverse.png){width="80%"}
+:::
+
+:::{#cr-ggplot2}
+![](./img/ggplot2.png)
+:::
+
+:::{#cr-dplyr}
+![](./img/dplyr.png)
+:::
+
+:::{#cr-tidyr}
+![](./img/tidyr.png)
+:::
+
+:::
+
+:::{.cr-section}
+
+# La révolution Quarto
+
+Avant, un analyste ouvrait son script R. Il l'exécutait, copiait le graphique obtenu, ouvrait Microsoft Word, collait le graphique, puis rédigeait son texte. [@cr-analyste-content]
+
+Le problème ? Si les données changent le lendemain, il faut tout recommencer à la main. C'est une source d'erreurs chronophage. [@cr-analyste-panique]
+
+C'est là qu'intervient **Quarto** [@cr-quarto]
+
+Mais qu'est-ce que c'est ? C'est un système de publication scientifique et technique à open source. [@cr-quarto]
+
+Il permet de rédiger en utilisant le format Markdown, et de créer du contenu dynamique avec Python, R, Julia et Observable. [@cr-quarto]
+
+La véritable puissance de Quarto réside dans sa compilation. À partir d'un seul et même document, vous pouvez : [@cr-quarto]
+
+Publier des articles et des rapports de qualité professionnelle. [@cr-article-quarto]
+
+Générer des diaporamas pour vos présentations. [@cr-presentation-quarto]
+
+Concevoir des tableaux de bord pour piloter vos données. [@cr-dashboard-quarto]
+
+Ou encore créer des sites web et des blogs entièrement reproductibles. [@cr-site-web-quarto]
+
+Regardons comment se structure ce fichier "Tout-en-un". Tout en haut, on retrouve l'en-tête YAML qui gère les métadonnées et définit le format de sortie. [@cr-code-quarto]{highlight="1-5"}
+
+**Du texte normal** : écrit très simplement en Markdown pour documenter notre analyse sans se soucier du code informatique. [@cr-code-quarto]{highlight="6-11"}
+
+**Des Chunks (Blocs de Code)** : ce sont ces petites fenêtres intégrées au milieu du texte qui contiennent ici nos instructions de filtrage et de visualisation du Tidyverse. [@cr-code-quarto]{highlight="12-26"}
+
+:::{#cr-analyste-content}
+![](./img/analyste_content.png){width="80%"}
+:::
+
+:::{#cr-analyste-panique}
+![](./img/analyste_panique.png){width="80%"}
+:::
+
+:::{#cr-quarto}
+![](./img/quarto.png){width="80%"}
+:::
+
+:::{#cr-article-quarto}
+![](./img/article_quarto.png){width="80%"}
+:::
+
+:::{#cr-presentation-quarto}
+![](./img/presentation_quarto.png){width="80%"}
+:::
+
+:::{#cr-dashboard-quarto}
+![](./img/dashboard_quarto.png){width="80%"}
+:::
+
+:::{#cr-site-web-quarto}
+![](./img/site_web_quarto.png){width="80%"}
+:::
+
+:::{#cr-code-quarto}
+````markdown
+---
+title: "Mon Premier Document Quarto"
+format: html
+editor: visual
+---
+
+## Introduction
+
+Voici du **texte normal**. Il s'agit d'un paragraphe écrit très simplement 
+pour documenter notre analyse. Quarto permet de mettre en forme facilement 
+le texte (comme ce mot en **gras**) sans se soucier du code.
+
+## Analyse des données
+
+```{{r}}
+#| message: false
+#| warning: false
+library(tidyverse)
+
+# Un exemple de script R avec le Tidyverse
+mpg %>% 
+  filter(cyl == 4) %>% 
+  ggplot(aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +
+  labs(title = "Consommation des voitures à 4 cylindres")
+```
+````
+:::
+
+:::
+
+:::{.cr-section}
+
+# La Magie de Closeread
+
+Quarto permet de créer des pages web statiques, mais **Closeread** leur donne vie grâce au *Scrollytelling*. L'objectif ? Rendre la lecture active en liant le texte et l'image par le mouvement. [@cr-closeread]
+
+Le secret de Closeread repose sur une séparation stricte de l'écran en deux espaces distincts qui cohabitent au sein d'une même section. [@cr-closeread]
+
+À gauche, nous trouvons la **barre narrative**. C'est le texte classique qui défile verticalement au rythme du scroll de l'utilisateur. [@cr-closeread]{scale-by="1.8" pan-to="50%, 0%"}
+
+À droite, nous trouvons la **zone fixe (ou *sticky*)**. C'est le théâtre visuel où les graphiques, les cartes ou les codes restent ancrés à l'écran pendant que le texte passe. [@cr-closeread]{scale-by="1.8" pan-to="-20%, 0%"}
+
+Mais concrètement, comment on code cette séparation ? Tout commence par la création de notre terrain de jeu : on englobe notre chapitre entier dans une balise spéciale `:::{.cr-section}`. C'est elle qui active le mode scrollytelling. [@cr-demo-syntaxe]{highlight="2,19"}
+
+Ensuite, il faut préparer l'élément visuel qui restera figé à droite. On l'isole tout en bas de notre code, et on lui donne un identifiant unique précédé d'un dièse, par exemple `#cr-ma-carte`. [@cr-demo-syntaxe]{highlight="15-17"}
+
+Maintenant que les fondations sont posées, comment relier le texte aux visuels ? La véritable magie opère grâce à des **déclencheurs (triggers)** invisibles insérés directement dans le texte à l'aide d'un `@`. [@cr-demo-syntaxe]{highlight="8"}
+
+En ajoutant de simples paramètres entre accolades `{}` derrière ce déclencheur, le texte prend le contrôle direct de la caméra et de l'affichage. [@cr-demo-syntaxe]{highlight="8-13"}
+
+L'attribut `scale-by` permet d'ajuster l'effet de loupe (le zoom global) pour forcer l'œil du lecteur à se focaliser sur une zone précise. [@cr-demo-syntaxe]{highlight="9"}
+
+L'attribut `pan-to` déplace l'élément visuel sur un axe horizontal ou vertical pour recadrer l'attention, créant des transitions fluides. [@cr-demo-syntaxe]{highlight="10"}
+
+Quand l'élément fixe est un bloc de code ou du texte, l'attribut `highlight` entre en scène : il éclaire uniquement les lignes ciblées et estompe tout le reste dans la pénombre. [@cr-demo-syntaxe]{highlight="11"}
+
+Enfin, l'attribut `zoom-to` automatise le travail : il ordonne à la caméra de calculer d'elle-même le meilleur cadrage pour zoomer directement et exclusivement sur les lignes de code sélectionnées. [@cr-demo-syntaxe]{highlight="12"}
+
+:::{#cr-closeread}
+![](./img/carte_seum_score.png){width="100%"}
+:::
+
+:::{#cr-demo-syntaxe}
+````markdown
+
+:::{.cr-section}
+
+Mon texte narratif défile ici, à gauche...
+Je raconte mon histoire au lecteur.
+
+Et soudain, je déclenche l'affichage d'une carte !
+[@cr-ma-carte]{
+  scale-by="1.5"
+  pan-to="20%, -10%"
+  highlight="1-5"
+  zoom-to="3-8"
+}
+
+:::{#cr-ma-carte}
+![](./img/carte_seum_score.png)
+:::
+
+:::
+````
+:::
+
+:::
+
+:::{.cr-section}
+
+# Coulisses : le code du seum-score
+
+Comment le **Seum-Score** est-il né ? [@cr-seum-score-2]
+
+L'étincelle est venue d'une expérience professionnelle précédente dans un laboratoire de compléments alimentaires. [@cr-seum-score-2]
+
+J'y ai travaillé sur l'intégration du **Green Impact Index** : un outil développé par les Laboratoires Pierre Fabre pour afficher l'impact environnemental et sociétal des produits. [@cr-g2i]
+
+Et puis, en lisant la description du Hackaviz 2026, une phrase a fait tilt : [@cr-g2i]
+
+> *"L'objectif de ces dépenses étant en premier lieu le bien-être des populations..."* [@cr-g2i]
+
+Mon cerveau a immédiatement fait le lien : et si on appliquait la logique d'un index d'impact pour croiser les dépenses réelles des États et le niveau de bonheur ressenti par leurs citoyens ? [@cr-g2i]
+
+Le **Seum-Score** était né ! Une tentative statistique de vérifier si notre argent produit du sourire... ou de la frustration. [@cr-seum-score-2]
+
+Pour concevoir cet index, je m'y suis pris en 4 étapes clés.
+
+**1) Préparation de l'environnement et importation** [@cr-code-import]
+
+On commence par charger notre boîte à outils (`tidyverse`, `FactoMineR`, `sf`, `arrow`) et importer nos fichiers Parquet ainsi que le fond de carte géopolitique de l'Europe. [@cr-code-import]
+
+**2) Le Nettoyage et la Transformation**[@cr-code-clean]
+
+C'est la phase de data wrangling. On calcule le poids relatif des budgets en % et on opère notre fameuse **inversion sémantique** : multiplier par -1 les variables négatives (solitude, chômage) pour aligner les graphiques. [@cr-code-clean]
+
+**3) La Reconduction (Fusion et Imputation)**[@cr-code-reconduction]
+
+On interconnecte nos sources de données par pays. Pour gérer proprement les données manquantes sans supprimer de lignes, on utilise un algorithme d'imputation mathématique via le package `missMDA`. [@cr-code-reconduction]
+
+**4) L'Analyse statistique et les Exports**[@cr-code-analyse]
+
+Le bouquet final : on exécute l'ACP et la classification hiérarchique (CAH) pour isoler nos 4 profils de Seum. Enfin, on exporte les matrices en `.csv` et le fichier spatial `seum.geojson` pour nourrir nos graphiques interactifs en Observable JS. [@cr-code-analyse]
+
+**5) La Visualisation Interactive (Observable JS)**
+C'est la brique magique qui s'exécute directement dans le navigateur du lecteur. Observable JS récupère nos fichiers légers et dessine en temps réel la carte et les graphiques vectoriels interactifs au pixel près. [@cr-code-ojs]
+
+:::{#cr-seum-score-2}
+![](./img/seum_score.png){width="80%"}
+:::
+
+:::{#cr-g2i}
+![](./img/g2i.png){width="100%"}
+:::
+
+:::{#cr-code-import}
+````markdown
+library(arrow)      
+library(tidyverse)  
+library(FactoMineR) 
+library(factoextra) 
+library(sf)         
+library(missMDA)
+
+# Chemins
+path <- "data/"
+
+# Imports
+bien_etre <- read_parquet(file.path(path, "parquet_long", "bien_etre.parquet"))
+depenses  <- read_parquet(file.path(path, "parquet_long", "depenses_euro.parquet"))
+geo <- st_read(file.path(path, "geojson", "carte.geojson"), quiet = TRUE)
+````
+:::
+
+:::{#cr-code-clean}
+````markdown
+# Calcul des parts budgétaires de l'État
+df_depenses <- depenses %>% 
+  filter(Cde_Dépense %in% c("GF01", "GF02", "GF03"), Année == "2022") %>%
+  group_by(Pays) %>%
+  mutate(Part_Budget = (Montant / sum(Montant, na.rm = TRUE)) * 100)
+
+# L'inversion sémantique magique
+df_bien_etre <- bien_etre %>% 
+  mutate(Valeur_Mesurée = if_else(
+    Mesure %in% mesures_negatives, Valeur_Mesurée * -1, Valeur_Mesurée
+  ))
+````
+:::
+
+:::{#cr-code-reconduction}
+````markdown
+# Fusion sémantique des tables
+data_brute <- inner_join(df_depenses, df_bien_etre, by = c("Pays", "Année"))
+
+# Traitement automatique des valeurs manquantes (missMDA)
+data_filtree <- data_brute %>% select(where(~ mean(is.na(.)) < 0.5))
+res_impute <- imputePCA(data_filtree, ncp = 2)
+data_complete <- res_impute$completeObs
+````
+:::
+
+:::{#cr-code-analyse}
+````markdown
+# Moteur statistique (ACP + CAH Clustering)
+res_pca <- PCA(data_complete, scale.unit = TRUE, graph = FALSE)
+res_hcpc <- HCPC(res_pca, nb.clust = 4, graph = FALSE)
+
+# Exports plats pour l'interactivité Observable JS
+write_csv(corr_data, "corr_data.csv")
+write_csv(pca_inds, "pca_inds.csv")
+sf::st_write(geo_final, "seum.geojson", delete_dsn = TRUE, quiet = TRUE)
+````
+:::
+
+:::{#cr-code-ojs}
+````markdown
+// Lecture du fichier généré par R et tracé du graphique
+data_corr = FileAttachment("corr_data.csv").csv({typed: true})
+
+Plot.plot({
+  color: { type: "diverging", scheme: "RdBu", domain: [-1, 1] },
+  marks: [
+    Plot.cell(data_corr, { x: "var1", y: "var2", fill: "correlation" })
+  ]
+})
+````
+:::
+
+:::
+
+:::{.cr-section}
+
+# Conclusion : Sortir de la matrice
+
+Voilà comment s'achève notre infiltration au cœur du **Seum-Score**. [@cr-seum-score]
+
+En combinant la puissance brute de **R**, la rigueur du **Tidyverse**, la polyvalence de **Quarto**, le dynamisme de **Closeread** et l'interactivité d'**Observable JS**, nous avons fait bien plus que de la simple technique. [@cr-seum-score]
+
+Le projet est entièrement reproductible, open-source et prêt à être décliné pour d'autres analyses. À vous maintenant de vous emparer de cette stack pour donner vie à vos propres données ! [@cr-seum-score]
+
+Merci à tous pour votre attention. La matrice est désormais ouverte à vos questions ! [@cr-seum-score]
+
+:::{#cr-seum-score}
+![](./img/seum_score.png){width="80%"}
+:::
+
+:::
+
+\
+\
+\
+
+---
+
+# 📚 Reconstruire la matrice chez vous (Liens & Installation)
+
+Si vous voulez cloner ce projet ou créer votre propre scrollytelling, voici le guide de démarrage rapide :
+
+| Outil / Ressource | Ce qu'il faut installer / Consulter | Lien Officiel |
+| :--- | :--- | :--- |
+| **Le Cœur (R)** | Télécharger l'environnement de calcul R complet. | [CRAN Project](https://cloud.r-project.org/) |
+| **L'Habitacle (RStudio)** | Installer l'IDE RStudio Desktop (édité par Posit). | [Posit Download](https://posit.co/download/rstudio-desktop/) |
+| **Le Châssis (Quarto)** | Installer le Quarto CLI (le moteur de compilation). | [Quarto Get Started](https://quarto.org/) |
+| **La Caméra (Closeread)** | L'extension de Scrollytelling officielle pour Quarto. | [Closeread Guide](https://closeread.dev/) |
+| **Le Dessin (OJS Plot)** | La documentation pour coder les graphiques réactifs. | [Observable Plot](https://observablehq.com/plot/) |
+
+> **Pour installer Closeread dans votre projet :** Ouvrez votre terminal à la racine de votre dossier de travail Quarto et exécutez simplement la commande suivante :
+>
+> quarto add qmd-lab/closeread
+>
+
+*Dataviz créée par [Faustin LAFAGE](https://www.linkedin.com/in/faustin-lafage/?skipRedirect=true).
